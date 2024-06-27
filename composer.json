@@ -1,6 +1,6 @@
 {
-    "name": "sandreu/cake-sentry",
-    "version": "0.1.0",
+    "name": "snakano/cake-sentry",
+    "version": "0.1.1",
     "type": "cakephp-plugin",
     "description": "Sentry error handler plugin for CakePHP2",
     "keywords": ["Sentry", "CakePHP", "Log", "Error", "Exception"],
@@ -18,11 +18,14 @@
             "name": "Sandreu",
             "email": "deadyman@free.fr",
             "role": "Developer"
+        },
+        {
+            "name": "SNakano"
         }
     ],
-    "homepage": "https://github.com/Sandreu/cake-sentry",
+    "homepage": "https://github.com/SNakano/cake-sentry",
     "support": {
-        "issues": "https://github.com/Sandreu/cake-sentry/issues"
+        "issues": "https://github.com/SNakano/cake-sentry/issues"
     },
     "minimum-stability": "stable"
 }

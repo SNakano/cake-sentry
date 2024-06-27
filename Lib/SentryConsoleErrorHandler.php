@@ -1,12 +1,12 @@
 <?php
-
-
-App::uses('ConsoleErrorHandler', 'Console');
 /**
  * Description of SentryConsoleErrorHandler
  *
  * @author Sandreu
  */
+
+App::uses('ConsoleErrorHandler', 'Console');
+
 class SentryConsoleErrorHandler extends ConsoleErrorHandler {
 
 	protected static function sentryLog(Exception $exception) {
@@ -21,12 +21,6 @@ class SentryConsoleErrorHandler extends ConsoleErrorHandler {
 
 	public function handleException(Exception $exception) {
 		try {
-			// Avoid bot scan errors
-			if (Configure::read('Sentry.avoid_bot_scan_errors') && ($exception instanceof MissingControllerException || $exception instanceof MissingPluginException) && Configure::read('debug')==0) {
-                		echo Configure::read('Sentry.avoid_bot_scan_errors');
-                		exit(0);
-            		}
-
 			self::sentryLog($exception);
 
 			return parent::handleException($exception);
@@ -37,8 +31,11 @@ class SentryConsoleErrorHandler extends ConsoleErrorHandler {
 
 	public function handleError($code, $description, $file = null, $line = null, $context = null) {
 		try {
-			$e = new ErrorException($description, 0, $code, $file, $line);
-			self::sentryLog($e);
+            list($error, $log) = self::mapErrorCode($code);
+            if ($log === LOG_ERR || $log === LOG_WARNING) {
+                $e = new ErrorException($description, 0, $code, $file, $line);
+                self::sentryLog($e);
+            }
 
 			return parent::handleError($code, $description, $file, $line, $context);
 		} catch (Exception $e) {

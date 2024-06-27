@@ -10,12 +10,12 @@ Installation
 1. Install Sentry Plugin into your CakePHP project with composer :
 <pre>
     // composer.json
-    
+
     // …
 
     "require": {
       // …
-      "sandreu/cake-sentry": "*"
+      "snakano/cake-sentry": "*"
     },
 
     // …
@@ -31,14 +31,9 @@ Installation
 3. Configure the error handler in your *core.php* :
 ```php
 	App::uses('SentryErrorHandler', 'Sentry.Lib');
-	
+
 	Configure::write('Sentry', array(
 		'production_only' => false, // true is default value -> no error in sentry when debug
-		'avoid_bot_scan_errors' => 'MissingController or MissingPlugin error message', // or false if you want Sentry to log MissingController and MissingPlugin Exceptions
-		'User' => array(
-			'model' => 'SpecialUser', // 'User' is default value
-			'email_field' => 'special_email' // default checks 'email' and 'mail' fields
-		),
 		'PHP' => array(
 			'server'=>'http://your-sentry-DSN-for-PHP'
 		),
