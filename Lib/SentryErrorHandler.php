@@ -20,9 +20,13 @@ class SentryErrorHandler extends ErrorHandler {
         try {
             self::sentryLog($exception);
 
-            return parent::handleException($exception);
-        } catch (Exception $e) {
-            return parent::handleException($e);
+
+                self::sentryLog($exception);
+
+                return parent::handleException($exception);
+            } catch (Exception $e) {
+                return parent::handleException($e);
+            }
         }
     }
 
@@ -33,7 +37,7 @@ class SentryErrorHandler extends ErrorHandler {
                 $e = new ErrorException($description, 0, $code, $file, $line);
                 self::sentryLog($e);
             }
-
+            
             return parent::handleError($code, $description, $file, $line, $context);
         } catch (Exception $e) {
             self::handleException($e);
