@@ -29,7 +29,7 @@ class SentryErrorHandler extends ErrorHandler {
     public static function handleError($code, $description, $file = null, $line = null, $context = null) {
         try {
             list($error, $log) = self::mapErrorCode($code);
-            if ($log === LOG_ERR || $log === LOG_WARNING) {
+            if ($log === LOG_ERR) {
                 $e = new ErrorException($description, 0, $code, $file, $line);
                 self::sentryLog($e);
             }
